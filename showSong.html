@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .file {
+        vertical-align: top;
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        padding: 4px 12px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+
+    #dllList {
+        margin: auto;
+        display: inline-block;
+        border-collapse: collapse;
+    }
+
+    #dllList th,
+    td {
+        width: 200px;
+        border: 1px solid #98bf21;
+        font-size: 1em;
+        text-align: right;
+        padding: 3px 7px 2px 7px;
+    }
+
+    #dllList th {
+        font-size: 1.1em;
+        text-align: left;
+        padding-top: 5px;
+        padding-bottom: 4px;
+        background-color: #A7C942;
+        color: #ffffff;
+    }
+
+    #dllList tr:nth-child(even) {
+        color: #000000;
+        background-color: #EAF2D3;
+    }
+</style>
+<script type="text/javascript">
+    function fileChange(that) {
+        // alert(document.getElementById("test0002").value);
+        // ="none";
+
+        var files = that.files;
+        //alert(files.value);
+        var filesJson = '[';
+        for (var i = 0; i < files.length; i++) {
+            let name = files[i].name;
+            filesJson += '{"name":"' + name + '"},';
+            // alert(window.URL.createObjectURL(files[i])== "/Users/zhangzhiwei/Downloads/music");
+        }
+        filesJson = filesJson.slice(0, -1) + "]";
+        createTable(filesJson, files);
+    }
+
+    function createTable(jsonStr, files) {
+        var obj = JSON.parse(jsonStr);
+        // var tableObject = document.getElementById('dllList');
+        document.getElementById("filePath").innerHTML = "";
+        for (var j in obj) {
+            if (obj[j].name.split("*").length > 1 && (obj[j].name.split(".mp3").length >1 || obj[j].name.split(".wav").length >1 || obj[j].name.split(".png").length >1 || obj[j].name.split(".jpeg").length >1)) {
+                var h4 = document.createElement("h3");
+                h4.innerHTML = "Song Name : " + obj[j].name.split("*")[0];
+                document.getElementById("filePath").appendChild(h4);
+            }
+        }
+        document.getElementById("test001").innerHTML = "";
+        for (var i in obj) {
+            // let TableRow = tableObject.insertRow();
+            // let fileName = TableRow.insertCell(0);
+            // fileName.innerHTML = obj[i].name;
+            // let fileSize = TableRow.insertCell(1);
+            // fileSize.innerHTML = obj[i].size;
+            if(obj[i].name.split(".mp3").length >1 || obj[i].name.split(".wav").length >1 || obj[i].name.split(".png").length >1 || obj[i].name.split(".jpeg").length >1){
+                var audio = document.createElement("audio");
+                audio.src = window.URL.createObjectURL(files[i]);
+                audio.name = "audio";
+                audio.controls = "controls";
+                var div = document.createElement("div");
+                // let audioTable = TableRow.insertCell(1);
+                // audioTable.innerHTML = document.getElementById("test001").appendChild(audio);;
+                var h3 = document.createElement("h3");
+                if (obj[i].name.split("*").length > 1) {
+                    h3.innerHTML = obj[i].name.split("*")[1];
+                } else {
+                    h3.innerHTML = obj[i].name.split("*")[0];
+                }
+
+                if(obj[i].name.split(".png").length >1 || obj[i].name.split(".jpeg").length >1){
+                    var img = document.createElement("img");
+                    img.src = window.URL.createObjectURL(files[i]);
+                    document.getElementById("test002").appendChild(h3);
+                    document.getElementById("test002").appendChild(img);
+                    
+                } else{
+                    document.body.appendChild(h3);
+                    document.getElementById("test001").appendChild(h3);
+                    document.getElementById("test001").appendChild(audio);
+                }   
+            }
+        }
+    }
+</script>
+
+
+​
+<body style="text-align:center;">
+    <h1>Singing Voice Separation</h1>
+    <br><br><br>
+<div id="filePath"></div>
+<a href="javascript:" class="file">选择文件
+    <input id="test0002" name="theFile" type="file" webkitdirectory directory onchange="fileChange(this);" multiple/>
+</a>
+
+<div id="test001"></div>
+<div id="test002"></div>
+</body>
+</html>
