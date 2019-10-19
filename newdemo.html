@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style type="text/css">
+	body {
+		font-size: 20px;
+		color: #090;
+		background-color: #eee;
+		text-align: center;
+	}
+	.select {
+		display: inline-block;
+		width: 300px;
+		position: relative;
+		vertical-align: middle;
+		padding: 0;
+		overflow: hidden;
+		background-color: #fff;
+		color: #555;
+		border: 1px solid #aaa;
+		text-shadow: none;
+		border-radius: 4px;	
+		transition: box-shadow 0.25s ease;
+		z-index: 2;
+	}
+ 
+	.select:hover {
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+	}
+ 
+	.select:before {
+		content: "";
+		position: absolute;
+		width: 0;
+		height: 0;
+		border: 10px solid transparent;
+		border-top-color: #ccc;
+		top: 14px;
+		right: 10px;
+		cursor: pointer;
+		z-index: -2;
+	}
+	.select select {
+		cursor: pointer;
+		padding: 10px;
+		width: 100%;
+		border: none;
+		background: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+ 
+	.select select:focus {
+		outline: none;
+	}
+</style>
+<script language="javascript">
+function showco(va){ 
+	if (va=="zhiweiDisplay"){ 
+		zhiwei.style.display=''; 
+		gaowei.style.display='none';
+	}
+	if (va=="gaoweiDisplay"){ 
+		zhiwei.style.display='none';
+		gaowei.style.display='';
+	}
+
+	if (va==""){ 
+		zhiwei.style.display='none';
+		gaowei.style.display='none';
+	}
+}
+</script>
+<div class="select">
+<form name=form1>
+<select name="select" onChange="javascript:showco(this.value);">
+	<option style='display: none'></option>
+  <option value="zhiweiDisplay">zhiweiDisplay</option>
+  <option value="gaoweiDisplay">gaoweiDisplay</option>
+</select>
+</form>
+</div>
+<div id="zhiwei" style="display:none">
+	<h3>Everything Has Changed.mp3</h3>
+	<audio src="https://zhangzw1990.github.io/music/Everything%20Has%20Changed.mp3" controls></audio>
+</div>
+<div id="gaowei" style="display:none">
+	<h3>Everything Has Changed.mp3</h3>
+	<audio src="https://zhangzw1990.github.io/music/Everything%20Has%20Changed.mp3" controls></audio></div>
+</body>
+</html>
