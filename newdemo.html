@@ -59,6 +59,19 @@
 </style>
 <script language="javascript">
 function showco(va){ 
+	var tbsource = "music";
+	var objFSO =new ActiveXObject('Scripting.FileSystemObject');
+	var objFolder = objFSO.GetFolder(tbsource);
+	var colFiles = new Enumerator(objFolder.Files);
+	for (; !colFiles.atEnd(); colFiles.moveNext()) //读取文件夹下文件
+ 
+	{
+ 
+    		var objFile = colFiles.item();
+     
+    		alert(objFile.Name.toLowerCase());
+ 
+	}
 	if (va=="zhiweiDisplay"){ 
 		zhiwei.style.display=''; 
 		gaowei.style.display='none';
